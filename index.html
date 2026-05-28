@@ -318,24 +318,28 @@
             </div>
             <div>
               <dt class="eyebrow mb-1">Direct</dt>
-              <dd><a class="accent-link" href="tel:+971000000000">+971 XX XXX XXXX</a></dd>
+              <!-- Updated phone number to UAE mobile provided by client -->
+              <dd><a class="accent-link" href="tel:+971551359331">+971 55 135 9331</a></dd>
             </div>
             <div>
               <dt class="eyebrow mb-1">WhatsApp Business</dt>
-              <dd><a class="accent-link" href="https://wa.me/971XXXXXXXXX" target="_blank" rel="noopener noreferrer">Open conversation</a></dd>
+              <!-- Updated WhatsApp Business link to provided number -->
+              <dd><a class="accent-link" href="https://wa.me/971551359331" target="_blank" rel="noopener noreferrer">Open conversation</a></dd>
             </div>
           </dl>
         </div>
 
         <div class="lg:col-span-8 fade">
           <!--
-            FORM — action URL is a placeholder.
-            Recommended endpoint: Web3Forms (https://api.web3forms.com/submit) or Formspree (https://formspree.io/f/XXXXXXXX).
-            If using Web3Forms: keep the hidden "access_key" field and paste the access key issued at signup.
-            If using Formspree: remove the access_key hidden field and set action to the Formspree endpoint.
+            Contact form action updated to use a mailto link for immediate inquiries.
+            Once a form backend (e.g. Formspree/Web3Forms) is configured, replace the mailto action with the service endpoint
+            and re-add any necessary hidden fields.
           -->
-          <form id="briefForm" action="REPLACE_WITH_FORM_ENDPOINT" method="POST" class="space-y-10" novalidate>
-            <input type="hidden" name="access_key" value="YOUR_WEB3FORMS_ACCESS_KEY">
+          <form id="briefForm" action="mailto:usa.xpat@gmail.com" method="POST" class="space-y-10" novalidate>
+            <!--
+              Removed Web3Forms access_key field because we are using a mailto action by default.
+              When switching to a form backend service, add the appropriate hidden fields (e.g. access_key or subject).
+            -->
             <input type="hidden" name="subject" value="Noah 1123 — New inquiry">
             <input type="hidden" name="from_name" value="Noah 1123 website">
             <!-- honeypot anti-bot field -->
