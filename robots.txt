@@ -1,0 +1,10 @@
+# robots.txt — Noah 1123
+User-agent: *
+Allow: /
+
+# Block common crawl-traps and accidental admin paths if they ever exist
+Disallow: /cgi-bin/
+Disallow: /admin/
+Disallow: /.well-known/private/
+
+Sitemap: https://noah1123.com/sitemap.xml

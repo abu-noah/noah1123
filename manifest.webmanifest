@@ -1,0 +1,21 @@
+{
+  "name": "Noah 1123",
+  "short_name": "Noah 1123",
+  "description": "Principal-grade trade and supply along the U.S.–U.A.E. corridor.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#F4EFE6",
+  "theme_color": "#0B0B0B",
+  "lang": "en",
+  "dir": "ltr",
+  "icons": [
+    {
+      "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' fill='%23F4EFE6'/><text x='50%25' y='62%25' text-anchor='middle' font-family='Cormorant Garamond, Georgia, serif' font-size='52' font-weight='500' fill='%230B0B0B'>N</text></svg>",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}

@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!--
+    Noah 1123 — single-file deployable site.
+    Palette: A (Library). Ink black #0B0B0B on warm ivory #F4EFE6 with antique gold #9C7A2B accent.
+    Justification: private-bank tone for procurement officers, classic-car dealers, and senior trading-house contacts; prints cleanly; gives the wordmark room to sit.
+    Build: zero build step. Static HTML, Tailwind via CDN, three Google Fonts families, vanilla JS. Deployable as-is to Cloudflare Pages or Vercel.
+  -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#0B0B0B">
+  <meta name="color-scheme" content="light">
+  <title>Noah 1123 — Principal-grade trade along the U.S.–U.A.E. corridor</title>
+  <meta name="description" content="Noah 1123 is a principal-to-principal trading and supply house operating along the U.S.–U.A.E. corridor. Healthcare procurement, American classic automobiles, and project-based brokerage.">
+  <meta name="author" content="Noah 1123">
+  <meta name="robots" content="index,follow,max-image-preview:large">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Noah 1123">
+  <meta property="og:title" content="Noah 1123 — Principal-grade trade along the U.S.–U.A.E. corridor">
+  <meta property="og:description" content="A principal-to-principal trading and supply house operating along the U.S.–U.A.E. corridor.">
+  <meta property="og:url" content="https://noah1123.com/">
+  <meta property="og:locale" content="en_AE">
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Noah 1123">
+  <meta name="twitter:description" content="Principal-grade trade and supply along the U.S.–U.A.E. corridor.">
+
+  <link rel="canonical" href="https://noah1123.com/">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' fill='%23F4EFE6'/><text x='50%25' y='62%25' text-anchor='middle' font-family='Cormorant Garamond, Georgia, serif' font-size='52' font-weight='500' fill='%230B0B0B'>N</text></svg>">
+  <link rel="manifest" href="/manifest.webmanifest">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Inter:wght@300;400;500;600&family=Cairo:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <!-- Tailwind via CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            ink:        '#0B0B0B',
+            ivory:      '#F4EFE6',
+            gold:       '#9C7A2B',
+            rule:       '#C8BFAE',
+            'ink-muted':'#4A4540'
+          },
+          fontFamily: {
+            serif:  ['"Cormorant Garamond"', 'Georgia', 'serif'],
+            sans:   ['Inter', 'system-ui', 'sans-serif'],
+            arabic: ['Cairo', '"Noto Sans Arabic"', 'sans-serif']
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    :root { --ink:#0B0B0B; --ivory:#F4EFE6; --gold:#9C7A2B; --rule:#C8BFAE; --ink-muted:#4A4540; }
+    * { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', system-ui, sans-serif; background: var(--ivory); color: var(--ink); font-weight: 300; line-height: 1.65; }
+    .serif  { font-family: 'Cormorant Garamond', Georgia, serif; }
+    .arabic { font-family: 'Cairo', 'Noto Sans Arabic', sans-serif; direction: rtl; }
+
+    .eyebrow { font-size: 0.7rem; letter-spacing: 0.24em; text-transform: uppercase; color: var(--gold); font-weight: 500; }
+    .nav-link { font-size: 0.72rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--ink); transition: color .25s ease; min-height: 44px; display: inline-flex; align-items: center; padding: 8px 4px; }
+    .nav-link:hover, .nav-link:focus { color: var(--gold); }
+
+    .btn { display: inline-flex; align-items: center; justify-content: center; min-height: 48px; padding: 14px 26px; font-size: .78rem; letter-spacing: .2em; text-transform: uppercase; font-weight: 400; transition: all .25s ease; border: 1px solid var(--ink); }
+    .btn-primary   { background: var(--ink); color: var(--ivory); }
+    .btn-primary:hover, .btn-primary:focus { background: var(--gold); border-color: var(--gold); }
+    .btn-secondary { background: transparent; color: var(--ink); }
+    .btn-secondary:hover, .btn-secondary:focus { background: var(--ink); color: var(--ivory); }
+
+    .accent-link { color: var(--ink); border-bottom: 1px solid var(--gold); padding-bottom: 1px; transition: opacity .25s ease; }
+    .accent-link:hover, .accent-link:focus { opacity: .65; }
+
+    .hairline      { height: 1px; background: var(--rule); }
+    .hairline-gold { height: 1px; background: var(--gold); }
+
+    input, select, textarea { width: 100%; background: transparent; border: 0; border-bottom: 1px solid var(--ink); padding: 12px 2px; font: inherit; color: var(--ink); border-radius: 0; min-height: 44px; }
+    input:focus, select:focus, textarea:focus { outline: none; border-bottom-color: var(--gold); }
+    label { display: block; font-size: .68rem; letter-spacing: .22em; text-transform: uppercase; color: var(--ink-muted); margin-bottom: 8px; }
+    select { appearance: none; -webkit-appearance: none; background-image: linear-gradient(45deg, transparent 50%, #0B0B0B 50%), linear-gradient(135deg, #0B0B0B 50%, transparent 50%); background-position: calc(100% - 12px) center, calc(100% - 6px) center; background-size: 6px 6px, 6px 6px; background-repeat: no-repeat; padding-right: 28px; }
+
+    .fade { opacity: 0; transform: translateY(14px); transition: opacity 1s ease, transform 1s ease; }
+    .fade.in { opacity: 1; transform: translateY(0); }
+
+    *:focus-visible { outline: 2px solid var(--gold); outline-offset: 4px; }
+
+    @media (prefers-reduced-motion: reduce) {
+      .fade { opacity: 1; transform: none; transition: none; }
+      html { scroll-behavior: auto; }
+    }
+  </style>
+
+  <!-- Organization schema -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "Noah 1123",
+    "url": "https://noah1123.com",
+    "email": "enquiries@noah1123.com",
+    "description": "Principal-to-principal trading and supply house operating along the U.S.–U.A.E. corridor.",
+    "founder": {
+      "@type": "Person",
+      "name": "Hatim Faisal Abuasabeh",
+      "nationality": "American",
+      "alumniOf": "Purdue University"
+    },
+    "address": {
+      "@type": "PostalAddress",
+      "addressCountry": "AE",
+      "addressLocality": "Dubai"
+    },
+    "areaServed": ["AE", "GCC", "US"]
+  }
+  </script>
+</head>
+
+<body class="bg-ivory text-ink">
+
+<!-- Top navigation -->
+<header class="fixed top-0 inset-x-0 z-50 bg-ivory/85 backdrop-blur-sm border-b border-rule">
+  <div class="max-w-screen-xl mx-auto px-6 md:px-10 lg:px-14 h-16 md:h-20 flex items-center justify-between">
+    <a href="#top" class="serif font-medium text-xl md:text-2xl tracking-wide" aria-label="Noah 1123 — home">Noah <span class="text-gold">1123</span></a>
+    <nav class="hidden md:flex items-center gap-8" aria-label="Primary">
+      <a href="#about" class="nav-link">About</a>
+      <a href="#capabilities" class="nav-link">Capabilities</a>
+      <a href="#record" class="nav-link">Record</a>
+      <a href="#engagement" class="nav-link">Engagement</a>
+      <a href="#contact" class="nav-link">Contact</a>
+    </nav>
+    <button id="menuBtn" class="md:hidden p-3 -mr-3" aria-label="Open menu" aria-expanded="false" aria-controls="mobileMenu">
+      <span class="block w-5 h-px bg-ink"></span>
+      <span class="block w-5 h-px bg-ink mt-1.5"></span>
+      <span class="block w-5 h-px bg-ink mt-1.5"></span>
+    </button>
+  </div>
+  <div id="mobileMenu" class="hidden md:hidden border-t border-rule">
+    <nav class="px-6 py-2 flex flex-col" aria-label="Mobile primary">
+      <a href="#about" class="nav-link py-4">About</a>
+      <a href="#capabilities" class="nav-link py-4">Capabilities</a>
+      <a href="#record" class="nav-link py-4">Record</a>
+      <a href="#engagement" class="nav-link py-4">Engagement</a>
+      <a href="#contact" class="nav-link py-4">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<main id="top" class="pt-16 md:pt-20">
+
+  <!-- HERO -->
+  <section class="min-h-[calc(100vh-5rem)] flex items-center">
+    <div class="max-w-screen-xl mx-auto px-6 md:px-10 lg:px-14 py-20 md:py-28 w-full">
+      <p class="eyebrow mb-8 md:mb-10">Dubai · United Arab Emirates</p>
+
+      <h1 class="serif font-normal text-ink leading-[1.02] tracking-tight text-[2.75rem] sm:text-6xl md:text-7xl lg:text-8xl">
+        Noah <span class="text-gold">1123</span>
+      </h1>
+
+      <div class="hairline-gold w-16 mt-10 md:mt-12"></div>
+
+      <p class="arabic text-base md:text-lg mt-8 md:mt-10 text-ink-muted max-w-2xl" dir="rtl" lang="ar">
+        دار تجارة وتوريد بمستوى الأصيل على ممرّ الولايات المتحدة والإمارات.
+      </p>
+
+      <!--
+        HERO POSITIONING — two versions written; the 30-word version is used.
+        SELECTED (~28 words, used below):
+          "Principal-grade trade and supply along the United States–United Arab Emirates corridor. Healthcare procurement for institutional buyers, sourcing of American classic automobiles into the Gulf, and project-based brokerage."
+        REJECTED (~59 words):
+          "A principal-to-principal trading and supply house operating along the United States–United Arab Emirates corridor. Founder-led capability in healthcare consumables for government and private procurement, selective sourcing of American classic and collector automobiles into the Gulf, and project-based trade brokerage for institutional buyers. Discreet by default, credit-backed where appropriate, built on twenty-five years of operating experience across the corridor."
+      -->
+      <p class="serif text-xl md:text-2xl lg:text-[1.65rem] leading-snug mt-4 md:mt-5 max-w-3xl text-ink">
+        Principal-grade trade and supply along the United States–United Arab Emirates corridor. Healthcare procurement for institutional buyers, sourcing of American classic automobiles into the Gulf, and project-based brokerage.
+      </p>
+
+      <div class="flex flex-col sm:flex-row gap-3 sm:gap-4 mt-12 md:mt-14">
+        <a href="#contact" class="btn btn-primary">Make an inquiry</a>
+        <a href="#capabilities" class="btn btn-secondary">Capabilities</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about" class="border-t border-rule">
+    <div class="max-w-screen-xl mx-auto px-6 md:px-10 lg:px-14 py-20 md:py-28 lg:py-32">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16">
+        <div class="lg:col-span-4">
+          <p class="eyebrow mb-4">About the firm</p>
+          <h2 class="serif text-3xl md:text-4xl lg:text-[2.6rem] leading-[1.1] text-ink fade">
+            A private trading and supply house.
+          </h2>
+        </div>
+        <div class="lg:col-span-8 space-y-6 md:space-y-7 text-base md:text-lg text-ink-muted leading-relaxed fade">
+          <p>Noah 1123 is a principal trading and supply house. The firm sources, contracts, and ships across three lines — healthcare consumables for institutional procurement, American classic and collector automobiles into the Gulf, and project-based trade brokerage for engagements that fall outside standard retail channels.</p>
+          <p>The firm operates principal-to-principal. Engagements are conducted under formal terms, with confirmed purchase orders, back-to-back credit lines where the category requires, and bonded shipping where regulation requires. Discretion is the default posture. The firm does not publish client lists.</p>
+          <p class="text-ink">My name is Hatim Faisal Abuasabeh. I am a United States citizen operating from Dubai. I began my working career in 2001 on the floor of the Chicago Mercantile Exchange as a clerk in the Eurodollar and options pits, taking order flow on behalf of JP Morgan, Bear Stearns, and Morgan Stanley. After Purdue and roughly sixteen years in management — including time in American automotive retail — I founded and ran a Dubai-based medical-equipment trading firm from 2015 to 2023, supplying federal and emirate-level health entities and United Nations agencies in the region. Noah 1123 is the continuation of that work, with a wider mandate.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CAPABILITIES -->
+  <section id="capabilities" class="border-t border-rule">
+    <div class="max-w-screen-xl mx-auto px-6 md:px-10 lg:px-14 py-20 md:py-28 lg:py-32">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 mb-14 lg:mb-20">
+        <div class="lg:col-span-4">
+          <p class="eyebrow mb-4">Capabilities</p>
+          <h2 class="serif text-3xl md:text-4xl lg:text-[2.6rem] leading-[1.1] text-ink fade">
+            Three lines. Principal-to-principal.
+          </h2>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-10 lg:gap-14">
+        <article class="fade">
+          <div class="hairline-gold w-10 mb-6"></div>
+          <p class="eyebrow mb-4">01 — Healthcare Supply</p>
+          <h3 class="serif text-2xl md:text-[1.7rem] leading-tight text-ink mb-5">Medical consumables and surgical instrumentation.</h3>
+          <p class="text-ink-muted leading-relaxed mb-6">Founder-led experience supplying U.A.E. federal and emirate health entities and United Nations agencies between 2018 and 2023, with back-to-back credit execution against confirmed purchase orders. Product depth in personal protective equipment, sterile and surgical disposables, diagnostic and sample-collection consumables, wound care and infection prevention, and specialty surgical instruments on request.</p>
+          <a href="#contact" class="accent-link text-sm tracking-[0.18em] uppercase">Brief us →</a>
+        </article>
+
+        <article class="fade">
+          <div class="hairline-gold w-10 mb-6"></div>
+          <p class="eyebrow mb-4">02 — American Classic Automobiles</p>
+          <h3 class="serif text-2xl md:text-[1.7rem] leading-tight text-ink mb-5">Selective sourcing into the Gulf.</h3>
+          <p class="text-ink-muted leading-relaxed mb-6">The firm operates as a sourcing principal, not a showroom. Focus segments include 1960s–1970s muscle and pony cars, 1980s–1990s collector grades, and pickup and SUV classics — square-body General Motors trucks, early Broncos, K5 Blazers. Modern collector grades are sourced on request. Full export-import documentation and shipping coordination is handled in-house. Assignments begin with a written sourcing brief.</p>
+          <a href="#contact" class="accent-link text-sm tracking-[0.18em] uppercase">Brief us →</a>
+        </article>
+
+        <article class="fade">
+          <div class="hairline-gold w-10 mb-6"></div>
+          <p class="eyebrow mb-4">03 — General Trade</p>
+          <h3 class="serif text-2xl md:text-[1.7rem] leading-tight text-ink mb-5">Project-based trade brokerage.</h3>
+          <p class="text-ink-muted leading-relaxed mb-6">Engagements for buyers who require United-States-origin goods sourced into the U.A.E. or wider G.C.C. markets: procurement support for institutional buyers, industrial and consumer-goods sourcing, shipping and customs documentation coordination, and discreet acquisition assignments where standard retail channels are not appropriate. Each engagement is contracted individually.</p>
+          <a href="#contact" class="accent-link text-sm tracking-[0.18em] uppercase">Brief us →</a>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- TRACK RECORD -->
+  <section id="record" class="border-t border-rule">
+    <div class="max-w-screen-xl mx-auto px-6 md:px-10 lg:px-14 py-20 md:py-28 lg:py-32">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16">
+        <div class="lg:col-span-4">
+          <p class="eyebrow mb-4">Track record</p>
+          <h2 class="serif text-3xl md:text-4xl lg:text-[2.6rem] leading-[1.1] text-ink fade">
+            Executed across the corridor.
+          </h2>
+        </div>
+        <div class="lg:col-span-8 fade">
+          <p class="text-base md:text-lg text-ink-muted leading-relaxed">The founder has executed supply assignments to United Arab Emirates federal health entities, emirate-level health authorities, and United Nations agencies operating in the Near East. Transactions have been structured on back-to-back terms, against confirmed purchase orders, with bonded shipping where the category required. The firm speaks to scale and sector on request. It does not publish client identities, transaction values, or testimonials. Counterparties whose own protocols permit it may be referenced under a signed mutual non-disclosure arrangement.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ENGAGEMENT -->
+  <section id="engagement" class="border-t border-rule">
+    <div class="max-w-screen-xl mx-auto px-6 md:px-10 lg:px-14 py-20 md:py-28 lg:py-32">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 mb-12 lg:mb-16">
+        <div class="lg:col-span-4">
+          <p class="eyebrow mb-4">Working with us</p>
+          <h2 class="serif text-3xl md:text-4xl lg:text-[2.6rem] leading-[1.1] text-ink fade">
+            How engagements begin.
+          </h2>
+        </div>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-10 lg:gap-14">
+        <div class="fade">
+          <p class="eyebrow mb-4">How to brief</p>
+          <p class="text-ink-muted leading-relaxed">Send a written brief through the form below or by email. The firm prefers written first contact. A short note describing the category, target volume or unit, and timing is sufficient to open a file.</p>
+        </div>
+        <div class="fade">
+          <p class="eyebrow mb-4">Response time</p>
+          <p class="text-ink-muted leading-relaxed">Serious inquiries receive a response within twenty-four U.A.E. business hours. Pricing and structure are returned in writing once feasibility is confirmed.</p>
+        </div>
+        <div class="fade">
+          <p class="eyebrow mb-4">Confidentiality</p>
+          <p class="text-ink-muted leading-relaxed">All inquiries are treated as confidential by default. The firm signs a mutual non-disclosure arrangement on request before substantive exchange of pricing or counterparty data.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact" class="border-t border-rule">
+    <div class="max-w-screen-xl mx-auto px-6 md:px-10 lg:px-14 py-20 md:py-28 lg:py-32">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16">
+        <div class="lg:col-span-4">
+          <p class="eyebrow mb-4">Contact</p>
+          <h2 class="serif text-3xl md:text-4xl lg:text-[2.6rem] leading-[1.1] text-ink fade mb-8">
+            Send a brief.
+          </h2>
+          <p class="arabic text-sm md:text-base text-ink-muted mb-10" dir="rtl" lang="ar">
+            للاستفسارات الجادة، نُرحّب بمراسلتكم.
+          </p>
+          <dl class="space-y-6 text-base">
+            <div>
+              <dt class="eyebrow mb-1">Address</dt>
+              <dd class="text-ink">Dubai, United Arab Emirates</dd>
+            </div>
+            <div>
+              <dt class="eyebrow mb-1">Email</dt>
+              <dd><a class="accent-link" href="mailto:enquiries@noah1123.com">enquiries@noah1123.com</a></dd>
+            </div>
+            <div>
+              <dt class="eyebrow mb-1">Direct</dt>
+              <dd><a class="accent-link" href="tel:+971000000000">+971 XX XXX XXXX</a></dd>
+            </div>
+            <div>
+              <dt class="eyebrow mb-1">WhatsApp Business</dt>
+              <dd><a class="accent-link" href="https://wa.me/971XXXXXXXXX" target="_blank" rel="noopener noreferrer">Open conversation</a></dd>
+            </div>
+          </dl>
+        </div>
+
+        <div class="lg:col-span-8 fade">
+          <!--
+            FORM — action URL is a placeholder.
+            Recommended endpoint: Web3Forms (https://api.web3forms.com/submit) or Formspree (https://formspree.io/f/XXXXXXXX).
+            If using Web3Forms: keep the hidden "access_key" field and paste the access key issued at signup.
+            If using Formspree: remove the access_key hidden field and set action to the Formspree endpoint.
+          -->
+          <form id="briefForm" action="REPLACE_WITH_FORM_ENDPOINT" method="POST" class="space-y-10" novalidate>
+            <input type="hidden" name="access_key" value="YOUR_WEB3FORMS_ACCESS_KEY">
+            <input type="hidden" name="subject" value="Noah 1123 — New inquiry">
+            <input type="hidden" name="from_name" value="Noah 1123 website">
+            <!-- honeypot anti-bot field -->
+            <input type="checkbox" name="botcheck" class="hidden" style="display:none" tabindex="-1" autocomplete="off" aria-hidden="true">
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-10">
+              <div>
+                <label for="name">Name</label>
+                <input id="name" name="name" type="text" autocomplete="name" required>
+              </div>
+              <div>
+                <label for="organisation">Organisation</label>
+                <input id="organisation" name="organisation" type="text" autocomplete="organization" required>
+              </div>
+              <div>
+                <label for="country">Country</label>
+                <input id="country" name="country" type="text" autocomplete="country-name" required>
+              </div>
+              <div>
+                <label for="sector">Sector of interest</label>
+                <select id="sector" name="sector" required>
+                  <option value="">Select</option>
+                  <option value="Healthcare">Healthcare</option>
+                  <option value="Automotive">Automotive</option>
+                  <option value="General Trade">General Trade</option>
+                  <option value="Other">Other</option>
+                </select>
+              </div>
+            </div>
+            <div>
+              <label for="message">Brief</label>
+              <textarea id="message" name="message" rows="5" required></textarea>
+            </div>
+            <div class="flex flex-col sm:flex-row items-start sm:items-center gap-6 sm:gap-10 pt-2">
+              <button type="submit" class="btn btn-primary">Send brief</button>
+              <p id="formStatus" class="text-sm text-ink-muted" aria-live="polite"></p>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<!-- FOOTER -->
+<footer class="border-t border-rule">
+  <div class="max-w-screen-xl mx-auto px-6 md:px-10 lg:px-14 py-12 md:py-16">
+    <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-8">
+      <div>
+        <a href="#top" class="serif font-medium text-xl md:text-2xl tracking-wide block mb-2" aria-label="Noah 1123 — top">Noah <span class="text-gold">1123</span></a>
+        <p class="serif italic text-base md:text-lg text-ink-muted">Founded in memory of Noah.</p>
+      </div>
+      <p class="text-xs text-ink-muted tracking-wider uppercase">© 2026 Noah 1123. All rights reserved.</p>
+    </div>
+    <div class="hairline my-10"></div>
+    <p class="text-xs md:text-sm text-ink-muted leading-relaxed max-w-3xl">
+      Privacy — The firm retains inquiry data only for the period required to respond. Submissions are not added to marketing lists, are not shared with third parties, and may be deleted on written request to <a class="accent-link" href="mailto:enquiries@noah1123.com">enquiries@noah1123.com</a>.
+    </p>
+  </div>
+</footer>
+
+<script>
+  // Mobile menu
+  (function () {
+    const btn = document.getElementById('menuBtn');
+    const menu = document.getElementById('mobileMenu');
+    if (!btn || !menu) return;
+    btn.addEventListener('click', () => {
+      const willOpen = menu.classList.contains('hidden');
+      menu.classList.toggle('hidden');
+      btn.setAttribute('aria-expanded', String(willOpen));
+    });
+    menu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+      menu.classList.add('hidden');
+      btn.setAttribute('aria-expanded', 'false');
+    }));
+  })();
+
+  // Scroll fade-in
+  (function () {
+    const els = document.querySelectorAll('.fade');
+    if (!('IntersectionObserver' in window)) {
+      els.forEach(el => el.classList.add('in'));
+      return;
+    }
+    const obs = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('in');
+          obs.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+    els.forEach(el => obs.observe(el));
+  })();
+
+  // Form submission
+  (function () {
+    const form = document.getElementById('briefForm');
+    const status = document.getElementById('formStatus');
+    if (!form || !status) return;
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      if (!form.checkValidity()) {
+        status.textContent = 'Please complete the required fields.';
+        form.reportValidity();
+        return;
+      }
+      status.textContent = 'Sending…';
+      try {
+        const res = await fetch(form.action, {
+          method: 'POST',
+          body: new FormData(form),
+          headers: { 'Accept': 'application/json' }
+        });
+        if (res.ok) {
+          status.textContent = 'Received. The firm will respond within twenty-four U.A.E. business hours.';
+          form.reset();
+        } else {
+          status.textContent = 'Submission failed. Please email enquiries@noah1123.com directly.';
+        }
+      } catch {
+        status.textContent = 'Submission failed. Please email enquiries@noah1123.com directly.';
+      }
+    });
+  })();
+</script>
+</body>
+</html>
