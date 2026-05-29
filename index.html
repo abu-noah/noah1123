@@ -324,7 +324,8 @@
             <div>
               <dt class="eyebrow mb-1">WhatsApp Business</dt>
               <!-- Updated WhatsApp Business link to provided number -->
-              <dd><a class="accent-link" href="https://wa.me/971551359331" target="_blank" rel="noopener noreferrer">Open conversation</a></dd>
+                <!-- Display the WhatsApp number for clarity -->
+                <dd><a class="accent-link" href="https://wa.me/971551359331" target="_blank" rel="noopener noreferrer">+971 55 135 9331</a></dd>
             </div>
           </dl>
         </div>
@@ -335,10 +336,11 @@
             Once a form backend (e.g. Formspree/Web3Forms) is configured, replace the mailto action with the service endpoint
             and re-add any necessary hidden fields.
           -->
-          <form id="briefForm" action="mailto:usa.xpat@gmail.com" method="POST" class="space-y-10" novalidate>
+          <!-- Updated form to use FormSubmit service for backend-free submissions. Once a domain email is active, replace the address accordingly. -->
+          <form id="briefForm" action="https://formsubmit.co/usa.xpat@gmail.com" method="POST" class="space-y-10" novalidate>
             <!--
-              Removed Web3Forms access_key field because we are using a mailto action by default.
-              When switching to a form backend service, add the appropriate hidden fields (e.g. access_key or subject).
+              Removed Web3Forms access_key field because we are using FormSubmit as the backend.
+              When switching to a different form service, add the appropriate hidden fields (e.g. access_key or subject).
             -->
             <input type="hidden" name="subject" value="Noah 1123 — New inquiry">
             <input type="hidden" name="from_name" value="Noah 1123 website">
