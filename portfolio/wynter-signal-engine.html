@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Research-to-Campaign Signal Engine | Hatim Abuasabeh</title>
+<style>
+:root{--bg:#0b1020;--panel:#121a2f;--text:#edf2ff;--muted:#aab5d0;--accent:#8de1c3;--line:#263251;--hot:#ffd98a}
+*{box-sizing:border-box}body{margin:0;background:linear-gradient(180deg,#09101f,#0d1324 45%,#0a0f1b);color:var(--text);font-family:Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,Arial,sans-serif;line-height:1.55}
+.wrap{max-width:1120px;margin:auto;padding:42px 22px 80px}.top{display:flex;gap:18px;align-items:flex-start;justify-content:space-between;flex-wrap:wrap}.eyebrow{font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);font-weight:700}.tag{border:1px solid var(--line);border-radius:999px;padding:8px 12px;color:var(--muted);font-size:13px}
+h1{font-size:clamp(34px,6vw,64px);line-height:1.02;max-width:840px;margin:10px 0 16px}h2{font-size:24px;margin:0 0 10px}p{color:var(--muted);max-width:860px}.lead{font-size:18px}
+.notice{border:1px solid #46516d;background:#11192c;border-radius:16px;padding:16px 18px;margin:22px 0 30px}.notice strong{color:var(--hot)}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}@media(max-width:850px){.grid{grid-template-columns:1fr}}
+.card{background:rgba(18,26,47,.82);border:1px solid var(--line);border-radius:18px;padding:20px;box-shadow:0 16px 50px rgba(0,0,0,.18)}
+label{display:block;font-size:13px;color:var(--muted);margin-bottom:8px}textarea{width:100%;min-height:230px;resize:vertical;background:#0a1121;color:var(--text);border:1px solid var(--line);border-radius:14px;padding:15px;font:inherit;outline:none}textarea:focus{border-color:var(--accent)}
+button{cursor:pointer;border:0;border-radius:12px;background:var(--accent);color:#08101e;padding:13px 18px;font-weight:800;font-size:15px;margin-top:12px}.secondary{background:#1b2745;color:var(--text);border:1px solid var(--line);margin-left:8px}
+.kpi{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:14px 0 18px}.kpi div{border:1px solid var(--line);border-radius:12px;padding:12px;background:#0d1425}.kpi b{display:block;font-size:22px;color:var(--accent)}.kpi span{font-size:12px;color:var(--muted)}
+.output{display:grid;gap:10px}.angle{border:1px solid var(--line);border-radius:13px;padding:13px 14px;background:#0c1324}.angle .score{float:right;color:var(--hot);font-weight:700}.angle strong{display:block;margin-bottom:4px}.angle small{color:var(--muted)}
+.flow{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-top:12px}.step{border:1px solid var(--line);border-radius:12px;padding:12px;text-align:center;font-size:12px;color:var(--muted)}.step b{color:var(--text);display:block;margin-bottom:4px}@media(max-width:800px){.flow{grid-template-columns:1fr 1fr}.kpi{grid-template-columns:1fr}}
+pre{white-space:pre-wrap;background:#08101d;border:1px solid var(--line);border-radius:14px;padding:16px;color:#d7e2ff;overflow:auto}
+.footer{margin-top:34px;border-top:1px solid var(--line);padding-top:18px;color:var(--muted);font-size:13px}a{color:var(--accent)}
+</style>
+</head>
+<body>
+<main class="wrap">
+  <div class="top">
+    <div>
+      <div class="eyebrow">AI-assisted build | Sep 11, 2026</div>
+      <h1>Research-to-Campaign Signal Engine</h1>
+      <p class="lead">A scrappy orchestration shell for turning raw buyer language into ranked B2B campaign angles, hooks, and experiment briefs.</p>
+    </div>
+    <div class="tag">Built by Hatim Abuasabeh with AI-assisted coding</div>
+  </div>
+
+  <div class="notice">
+    <strong>Transparency note:</strong> This is a rapid spec prototype built for the Wynter application. The public demo deliberately uses a deterministic fallback so no private API key is exposed in the browser. The working workflow uses an LLM for expansion and critique, then human review before anything ships.
+  </div>
+
+  <section class="grid">
+    <div class="card">
+      <h2>1. Paste a buyer signal</h2>
+      <label for="signal">Raw interview note, survey response, support transcript, sales call note, or message-test comment</label>
+      <textarea id="signal">VPs of Product Marketing are under pressure to prove that messaging is grounded in real buyer evidence, but most teams still rely on internal opinions, a few sales calls, and generic AI summaries. They want faster confidence without another six-week research project.</textarea>
+      <button id="run">Generate campaign sprint</button>
+      <button class="secondary" id="example">Load another example</button>
+    </div>
+
+    <div class="card">
+      <h2>2. Ranked output</h2>
+      <div class="kpi">
+        <div><b id="k1">12</b><span>angle families</span></div>
+        <div><b id="k2">5</b><span>top experiments</span></div>
+        <div><b id="k3">1</b><span>human approval gate</span></div>
+      </div>
+      <div class="output" id="output"></div>
+    </div>
+  </section>
+
+  <section class="card" style="margin-top:18px">
+    <h2>Workflow design</h2>
+    <p>The point is not "ask AI for ideas." The point is a repeatable system with explicit stages, scoring, and a human gate.</p>
+    <div class="flow">
+      <div class="step"><b>1. Normalize</b>Clean raw language</div>
+      <div class="step"><b>2. Extract</b>Pain, stakes, objections</div>
+      <div class="step"><b>3. Expand</b>12 angle families</div>
+      <div class="step"><b>4. Score</b>ICP fit, novelty, proof</div>
+      <div class="step"><b>5. Ship</b>Brief + channel assets</div>
+    </div>
+  </section>
+
+  <section class="grid" style="margin-top:18px">
+    <div class="card">
+      <h2>LLM contract</h2>
+      <p>The private AI step is constrained by a fixed schema so the output can be reviewed, ranked, and routed into downstream assets.</p>
+      <pre>{
+  "buyer_signal": "...",
+  "pain": "...",
+  "stakes": "...",
+  "objection": "...",
+  "angles": [
+    {
+      "hook": "...",
+      "channel": "LinkedIn | email | landing page",
+      "proof_needed": "...",
+      "cta": "...",
+      "score": 0-100
+    }
+  ],
+  "human_review": "required"
+}</pre>
+    </div>
+    <div class="card">
+      <h2>Why this matters for Wynter</h2>
+      <p>Wynter already owns the hard part: original buyer data. The leverage comes from turning one research finding into many credible, non-generic ways to earn attention from VPs of Product Marketing, then measuring which ones create qualified demos.</p>
+      <p><strong style="color:var(--text)">Prototype result:</strong> one raw signal is converted into 12 angle families and a ranked top five in one pass. This page does not claim business performance because it has not been deployed as a live campaign.</p>
+      <p><strong style="color:var(--text)">Next production step:</strong> connect the schema to a private LLM endpoint, add CRM context, log experiment IDs, and capture demo conversion by angle.</p>
+    </div>
+  </section>
+
+  <div class="footer">Hatim Abuasabeh | Portfolio artifact for Wynter | Built Sep 11, 2026</div>
+</main>
+<script>
+const examples=[
+"CMOs say every vendor claims to be AI-powered, which makes category pages sound interchangeable. They trust specific buyer evidence, clear tradeoffs, and proof that the vendor understands how their team actually works.",
+"Product marketers know their homepage is too vague, but internal stakeholders disagree on what should change. They need a fast outside-in read that creates evidence everyone can react to."
+];
+const stop=new Set("the a an and or but to of in on for with is are be been being that this it they their them from as at by into about most still another without how what where who why can could should would your our".split(" "));
+function keywords(text){
+ return [...new Set(text.toLowerCase().replace(/[^a-z0-9\\s-]/g," ").split(/\\s+/).filter(w=>w.length>5&&!stop.has(w)))].slice(0,8);
+}
+function makeAngles(text){
+ const k=keywords(text), a=k[0]||"buyer evidence", b=k[1]||"messaging", c=k[2]||"confidence";
+ const templates=[
+ ["The uncomfortable benchmark",`How many ${b} decisions are still being made without direct ${a}?`,"LinkedIn + landing page",94],
+ ["The cost-of-opinion angle",`What internal debate is costing teams when ${c} is missing.`,"Newsletter + ABM email",91],
+ ["The peer-proof angle",`What senior marketers say they trust before changing ${b}.`,"Research post + webinar",89],
+ ["The speed challenge",`Can a team get credible ${a} in 48 hours instead of six weeks?`,"Paid social + demo page",87],
+ ["The message autopsy",`Before and after: turn vague ${b} into language a buyer would repeat.`,"Series + retargeting",86],
+ ["The anti-slop position",`Why generic AI content fails when buyers expect specific ${a}.`,"Founder post + article",84],
+ ["The stakeholder truce",`Use outside buyer evidence to settle internal ${b} arguments.`,"Email + sales enablement",82],
+ ["The confidence score",`Score a page on specificity, proof, and buyer relevance before it ships.`,"Interactive tool",81],
+ ["The false-consensus test",`What your team assumes buyers care about vs. what they actually mention.`,"Survey + social",79],
+ ["The boardroom translation",`Turn qualitative ${a} into a decision an executive can defend.`,"Executive brief",77],
+ ["The launch-risk angle",`Find the risky message before paid distribution amplifies it.`,"ABM + paid",75],
+ ["The category contrast",`Make the tradeoff clear enough that a VP can explain why you are different.`,"Landing page + ads",73]
+ ];
+ return templates;
+}
+function render(){
+ const text=document.getElementById("signal").value.trim();
+ const arr=makeAngles(text).sort((x,y)=>y[3]-x[3]).slice(0,5);
+ document.getElementById("output").innerHTML=arr.map((x,i)=>`<div class="angle"><span class="score">${x[3]}/100</span><strong>${i+1}. ${x[0]}</strong><small>${x[1]}<br>Best first channel: ${x[2]}</small></div>`).join("");
+}
+document.getElementById("run").addEventListener("click",render);
+document.getElementById("example").addEventListener("click",()=>{document.getElementById("signal").value=examples[Math.floor(Math.random()*examples.length)];render();});
+render();
+</script>
+</body>
+</html>
